@@ -1,6 +1,6 @@
 module.exports = {
   title: `Deep Learner`,
-  description: `Jeonsworld Blog`,
+  description: `Jeonsworld blog`,
   author: `[Jeonsworld]`,
   introduction: `lean and mean`,
   siteUrl: `https:jeonsworld.github.io`,
@@ -25,5 +25,5 @@ module.exports = {
   share: {
     facebookAppId: '', // Add facebookAppId for using facebook share feature v3.2
   },
-  ga: '', // Add your google analytics tranking ID
+  ga: 'UA-157040981-1', // Add your google analytics tranking ID
 }
