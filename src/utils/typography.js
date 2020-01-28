@@ -41,7 +41,27 @@ GitHubTheme.overrideThemeStyles = () => {
   }
 }
 
-const typography = new Typography(GitHubTheme)
+//const typography = new Typography(GitHubTheme)
+
+const typography = new Typography({
+  baseFontSize: "18px",
+  baseLineHeight: 1.6,
+  googleFonts: [
+    {
+      name: "Noto Serif KR",
+      styles: ["400", "700"],
+    },
+    {
+      name: "Noto Sans KR",
+      styles: ["400", "700"],
+    },
+  ],
+  headerFontFamily: ["Noto Sans KR", "sans-serif"],
+  bodyFontFamily: ["Noto Serif KR", "serif"],
+  headerWeight: 700,
+  bodyWeight: 400,
+  boldWeight: 700,
+})
 
 // Hot reload typography in development.
 if (process.env.NODE_ENV !== `production`) {
