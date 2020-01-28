@@ -9,7 +9,7 @@ draft: false
 Zihao Ye, Qipeng Guo, Quan Gan, Zheng Zhang  
 https://rlgm.github.io/papers/67.pdf
 
-# SegTree Transformer: Iterative Refinement of Hirarchical Features
+# Abstract
 * Transformer의 building block은 node가 input token에 해당하는 전체 graph에서 message passing을 유도하는 것을 볼 수 있다. 이러한 dense connection으로 인해 무거워진다.
 * Star-Transformer는 인접 token사이의 연결을 유지하면서 중앙 node를 통해 long-term dependency를 중계함으로써 short-term dependency을 보다 많이 활용한다. 이러한 structure는 long sentence를 처리하는데 어려움이 있다.
 * 본 논문에서는 input token을 word span의 tree로 구성하고 attention을 확장하는 Segment Tree Transformer을 제안.
