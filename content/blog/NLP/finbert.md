@@ -11,10 +11,10 @@ https://arxiv.org/abs/1908.10063
 
 # Abstract
 * Financial sentiment analysis는 specialized language와 labled data가 없기 때문에 어렵고 general-purpose model은 domain에서 사용되는 specialized language때문에 효과적이지 않다.
-* pre-trained model은 더 적은 labled data를 필요로 하고 domain specific corpora에서 train할 수 있기 때문에 이 문제에 도움이 될거라고 가정
-* financial domain에서 NLP task를 처리하기 위해 BERT기반 language model인 FinBERT를 제안
-* FinBERT는 2가지 financial sentiment analysis task에서 SotA를 달성
-* FinBERT는 smaller training set과 model의 일부만 fine-tune해도 기존의 SotA보다 우수한 것을 발견
+* pre-trained model은 더 적은 labled data를 필요로 하고 domain specific corpora에서 train할 수 있기 때문에 이 문제에 도움이 될거라고 가정.
+* financial domain에서 NLP task를 처리하기 위해 BERT기반 language model인 FinBERT를 제안.
+* FinBERT는 2가지 financial sentiment analysis task에서 SotA를 달성.
+* FinBERT는 smaller training set과 model의 일부만 fine-tune해도 기존의 SotA보다 우수한 것을 발견.
 
 # 1. Introduction
 open market의 가격은 경제에서 교환되는 자산과 관련하여 사용 가능한 모든 정보를 반영.
