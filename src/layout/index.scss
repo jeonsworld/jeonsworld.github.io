@@ -9,3 +9,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s, color 0.3s;
 }
+blockquote > p {
+	margin-left: 10px; }
+
+a {
+text-decoration: none; }
