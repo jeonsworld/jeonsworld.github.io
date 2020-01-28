@@ -1,6 +1,6 @@
 ---
 title: 'Pretrained Encyclopedia: Weakly Supervised Knowledge-Pretrained Language Model'
-date: 2019-10-2
+date: 2019-10-01
 category: 'NLP'
 draft: false
 ---

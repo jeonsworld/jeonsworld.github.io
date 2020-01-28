@@ -1,6 +1,6 @@
 ---
 title: 'Distilling The Knowledge of BERT for Text Generation'
-date: 2019-10-1
+date: 2019-10-02
 category: 'NLP'
 draft: false
 ---
