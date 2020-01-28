@@ -44,7 +44,7 @@ GitHubTheme.overrideThemeStyles = () => {
 //const typography = new Typography(GitHubTheme)
 
 const typography = new Typography({
-  baseFontSize: "18px",
+  baseFontSize: "16px",
   baseLineHeight: 1.8,
   googleFonts: [
     {
