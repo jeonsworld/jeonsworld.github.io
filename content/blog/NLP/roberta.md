@@ -9,7 +9,7 @@ draft: false
 Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer Levy, Mike Lewis, Luke Zettlemoyer, Veselin Stoyanov  
 https://arxiv.org/abs/1907.11692
 
-# Short Review: 개선된점만 정
+# Short Review: 개선된점만 정리
 ## vs. BERT
 * large-scale text copora dataset(160GB)
     1. BookCorpus + Wikipedia (16GB)
