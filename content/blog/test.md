@@ -5,5 +5,5 @@ category: 'NLP'
 draft: false
 ---
 
-$$x$$
-$x$
+\\( x \\)  
+\\(x\\)
