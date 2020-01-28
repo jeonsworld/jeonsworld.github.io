@@ -45,22 +45,22 @@ GitHubTheme.overrideThemeStyles = () => {
 
 const typography = new Typography({
   baseFontSize: "18px",
-  baseLineHeight: 1.6,
+  baseLineHeight: 1.8,
   googleFonts: [
     {
       name: "Noto Serif KR",
-      styles: ["400", "700"],
+      styles: ["300", "600"],
     },
     {
       name: "Noto Sans KR",
-      styles: ["400", "700"],
+      styles: ["300", "600"],
     },
   ],
   headerFontFamily: ["Noto Sans KR", "sans-serif"],
   bodyFontFamily: ["Noto Serif KR", "serif"],
-  headerWeight: 700,
-  bodyWeight: 400,
-  boldWeight: 700,
+  headerWeight: 600,
+  bodyWeight: 300,
+  boldWeight: 600,
 })
 
 // Hot reload typography in development.
