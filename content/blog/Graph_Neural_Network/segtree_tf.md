@@ -15,7 +15,7 @@ https://rlgm.github.io/papers/67.pdf
 * 본 논문에서는 input token을 word span의 tree로 구성하고 attention을 확장하는 Segment Tree Transformer을 제안.
 * 공간과 시간 복잡성을 크게 개선하여 NLP task에 대해 $O(n\ log\ n)$을 달성
 
-# 1 Introduction
+# 1. Introduction
 Self-attention base model인 transformer는 NLP downstream task(NMT, language modeling, text classification)에서 많은 성능 향상을 보여줬다.
 그러나 Transformer의 무거운 architecture는 large-scale training data가 필요하거나 성능 손실을 겪는다.
 Battaglia et al., (2018)은 transformer의 내부 동작을 graph로 전달하는 message로 보고, input token을 node와 attention으로 사용한다. fully connected nature는 각 word가 정확히 한 단계에서 다른 token과 communicate할 수 있게 한다.  
@@ -31,7 +31,7 @@ Star-Transformer(Guo et al., 2019)는 relay node를 사용하여 input token의 
 계산복잡도는 $O(n\ log \ n)$ 달성.  
 SegTree-Transformer를 단순화하면 가까운 이웃에 더 많이 attend하고 멀리있는 이웃에는 덜 attend하는 inductive bias를 효율적으로 encoding한다.(Khandelwal et al.(2018))
 
-# 2 Model
+# 2. Model
 ## 2.1 Recap: Transformer
 n개의 input token이 있는 sentence가 주어지면 Transformer는 step t에서 각 input token ${ H }^{ t }\in \mathbb{ R }^{ n\times d }$의 $d$ dim representation을 반복적으로 계산한다. ${ H }^{ 0 }$은 token embedding
 * Transformer의 핵심은 다음과 같이 공식화 할 수 있는 MSA(Multi-head Self-Attention)이다.
@@ -89,7 +89,7 @@ internal node representation은 모두 0으로 초기화되고 leaf node represe
 vanilla transformer와 같이 여러개의 SegTree-Transformer layer를 쌓을 수 있다.
 downstream task에 따라 SegTree Transformer model의 output으로 최종 root node representation(e.g. Text Classification) 또는 최종 layer의 모든 leaf node representation(e.g. Language Modeling)을 취한다.
 
-## A Appendix
+## A. Appendix
 ### A.1 Pseudo Code of SegTree-Transformer
 ![img2](./img/segtree/seg_img2.png)
 
