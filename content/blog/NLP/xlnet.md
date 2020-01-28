@@ -72,7 +72,7 @@ $$
 { p }_{ \theta  }({ X }_{ { z }_{ t } }=x|{ x }_{ { z }_{ <t } })=\frac { exp({ e(x) }^{ \intercal  }{ h }_{ \theta  }({ x }_{ { z }_{ <t } })) }{ \sum _{ x\prime  }^{  }{ exp({ e(x\prime ) }^{ \intercal  }{ h }_{ \theta  }({ x }_{ { z }_{ <t } })) }  }
 $$
 
-${ h }_{ \theta  }({ x }_{ { z }_{ <t } })$는 masking후 transformer로 부터 생성된 ${ x }_{ { z }_{ <t } }$의 hidden representation 을 의미한다. representation ${ h }_{ \theta  }({ x }_{ { z }_{ <t } })`는 `math: {z}_{t}$에 의존성이 없다는 것을 주목하자. 결과적으로 유용한 representation을 배울 수 없는 위치에 상관없이 동일한 distribution이 예측하게 된다. (Appendix A.1 참고)
+${ h }_{ \theta  }({ x }_{ { z }_{ <t } })$는 masking후 transformer로 부터 생성된 ${ x }_{ { z }_{ <t } }$의 hidden representation 을 의미한다. representation ${ h }_{ \theta  }({ x }_{ { z }_{ <t } })$는 ${z}_{t}$에 의존성이 없다는 것을 주목하자. 결과적으로 유용한 representation을 배울 수 없는 위치에 상관없이 동일한 distribution이 예측하게 된다. (Appendix A.1 참고)
 위의 문제를 해결하기 위해 next-token의 distribution이 target position을 인식할수 있게 re-parameterize 한다.
 
 $$
@@ -88,8 +88,8 @@ target-aware representation은 target prediction에서 모호성을 제거하지
 
 
 위를 해결하기 위해 하나가 아닌 두 세트의 hidden representation을 사용하도록 제안한다.
-- **content representation:** ${ h }_{ \theta  }({ x }_{ { z }_{ \le t } })$(abbreviated as ${ h }_{ { z }_{ t } }$)는 transformer의 standard hidden state와 비슷한 역할을 한다. 이 representation은 context와 ${ x }_{ { z }_{ t } }$를 모두 encoding 한다.
-- **query representation:** ${ g }_{ \theta  }({ x }_{ { z }_{ <t } },{ z }_{ t })$(abbreviated as ${ g }_{ { z }_{ t } }$)는 contextual information ${ x }_{ { z }_{ <t } }$와 position ${ z }_{ t }$에 접근할 수 있지만 context ${ x }_{ { z }_{ t } }$에는 접근할 수 없다.  
+- **content representation:** ${ h }_{ \theta  }({ x }_{ { z }_{ \le t } })$(abbreviated as ${ h }_{ { z }_{ t } }$)는 transformer의 standard hidden state와 비슷한 역할을 한다. 이 representation은 content와 ${ x }_{ { z }_{ t } }$를 모두 encoding 한다.
+- **query representation:** ${ g }_{ \theta  }({ x }_{ { z }_{ <t } },{ z }_{ t })$(abbreviated as ${ g }_{ { z }_{ t } }$)는 contextual information ${ x }_{ { z }_{ <t } }$와 position ${ z }_{ t }$에 접근할 수 있지만 content ${ x }_{ { z }_{ t } }$에는 접근할 수 없다.  
 
 첫번째 layer query stream은 trainable vector로 initialzed 된다. (i.e., ${ g }_{ i }^{ (0) }=w$)  
 content stream은 word embedding의 값으로 구성된다. (i.e., ${ h }_{ i }^{ (0) }=e({ x }_{ i })$)  
@@ -208,7 +208,7 @@ context-target pair $\left( x,\mathcal{U} \right)$에 대해 고려해보면 다
 ## A.1 A Concrete Example of How Standard LM Parameterization Fails
 
 - 이 절에서는 2.3절에서 permutation objective가 standard language model parameterizaion이 실패하는 구체적인 예를 제시한다.
-- 다음 관계를 만족하는 두개의 다른 permutation ${ \mathrm{z} }^{ (1) }`과 `math: { \mathrm{z} }^{ (2) }$이 있다고 가정한다.
+- 다음 관계를 만족하는 두개의 다른 permutation ${ \mathrm{z} }^{ (1) }$과 ${ \mathrm{z} }^{ (2) }$이 있다고 가정한다.
 
 $$
 { \mathrm{z} }_{ <t }^{ (1) }={ \mathrm{z} }_{ <t }^{ (2) }={ \mathrm{z} }_{ <t }\quad but\quad { z }_{ t }^{ (1) }=i\cancel{=}j={ z }_{ t }^{ (2) }.
