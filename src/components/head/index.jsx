@@ -3,6 +3,14 @@ import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 
+<Helmet>
+  <title>{site.siteMetadata.title}</title>
+  <meta
+    name="google-site-verification"
+    content="hwVHlPho3Vdu21_gDSp9wp6bwyICluXyQ4qZzbxNUT4"
+  />
+</Helmet>;
+
 export function Head({ description, lang, meta, keywords, title }) {
   return (
     <StaticQuery
@@ -67,10 +75,6 @@ export function Head({ description, lang, meta, keywords, title }) {
   )
 }
 
-<Helmet>
-    <title>site-verification</title>
-    <meta name="google-site-verification" content="hwVHlPho3Vdu21_gDSp9wp6bwyICluXyQ4qZzbxNUT4" />
-</Helmet>
 Head.defaultProps = {
   lang: `en`,
   meta: [],
