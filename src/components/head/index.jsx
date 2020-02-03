@@ -50,10 +50,6 @@ export function Head({ description, lang, meta, keywords, title }) {
                 name: `twitter:description`,
                 content: metaDescription,
               },
-              {
-                name: `google-site-verification`,
-                content: hwVHlPho3Vdu21_gDSp9wp6bwyICluXyQ4qZzbxNUT4,
-              },
             ]
               .concat(
                 keywords.length > 0
@@ -70,6 +66,11 @@ export function Head({ description, lang, meta, keywords, title }) {
     />
   )
 }
+
+<Helmet>
+    <title>site-verification</title>
+    <meta name="google-site-verification" content="hwVHlPho3Vdu21_gDSp9wp6bwyICluXyQ4qZzbxNUT4" />
+</Helmet>
 Head.defaultProps = {
   lang: `en`,
   meta: [],
