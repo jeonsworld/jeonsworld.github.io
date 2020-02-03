@@ -30,3 +30,4 @@ export const Layout = ({ location, title, children }) => {
     </React.Fragment>
   )
 }
+
