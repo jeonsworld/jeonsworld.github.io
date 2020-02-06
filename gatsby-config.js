@@ -10,14 +10,14 @@ module.exports = {
         name: `blog`,
       },
     },
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        // replace "UA-XXXXXXXXX-X" with your own Tracking ID
-        trackingId: "UA-157040981-1",
-        head: true,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-google-analytics`,
+    //   options: {
+    //     // replace "UA-XXXXXXXXX-X" with your own Tracking ID
+    //     trackingId: "UA-157040981-1",
+    //     head: true,
+    //   },
+    // },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -88,6 +88,7 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: metaConfig.ga,
+        head: true,
       },
     },
     {
