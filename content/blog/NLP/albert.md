@@ -16,7 +16,7 @@ full-network pre-training(Radford et al., 2018; Devlin et al., 2019)은 language
 - RACE test paper기준 baseline 44.1%.
 - ALBERT는 89.4%를 달성하여 +45.3%를 개선.
     
-    
+ 
 network 성능을 개선하기위해 **large network를 training하고 더 작은 model로 distill하는것이 일반적인 관행**이 되었다.
 NLP task의 성능을 높이는 쉬운 방법이 더 큰 모델을 사용하는 것인가?
 
