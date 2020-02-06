@@ -1,3 +1,10 @@
+---
+title: 'Relative Position Encoding'
+date: 2020-02-06
+category: 'NLP'
+draft: false
+---
+
 # Background
 Transformer에서는 sinusoids 기반의 Position encoding을 사용하여 position 정보를 capture하였음. 또 다른 방법으로 BERT에서는 position embedding을 통해 position 정보를 capture함.
 
