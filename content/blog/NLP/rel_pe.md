@@ -40,7 +40,7 @@ def relative_position_bucket(relative_position, bidirectional=True, num_buckets=
     return ret
 ```
 
-* relative_position: relatvie position을 나타냄. 예시로 query, key의 length가 16이라고 가정할때 relative_position input은 다음과 같을 수 있음. 0 id는 현재 시점 $t$라고 볼 수 있다.
+* relative_position: relatvie position을 나타냄. 예시로 query, key의 length가 16이라고 가정할때 relative_position input은 다음과 같을 수 있음. 0 id는 현재 시점 $T$라고 볼 수 있다.
 ```bash
 tensor([[  0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  10,  11,  12,  13,
           14,  15],
