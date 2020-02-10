@@ -1,5 +1,5 @@
 ---
-title: 'FinBERT: Financial Sentiment Analysis with Pre-trained Language Models'
+title: '[논문리뷰] FinBERT: Financial Sentiment Analysis with Pre-trained Language Models'
 date: 2019-09-04
 category: 'NLP'
 draft: false

@@ -1,5 +1,5 @@
 ---
-title: 'ALBERT: A Lite BERT for Self-supervised Learning of Language Representations'
+title: '[논문리뷰] ALBERT: A Lite BERT for Self-supervised Learning of Language Representations'
 date: 2019-09-02
 category: 'NLP'
 draft: false
@@ -114,7 +114,7 @@ Hao et al., (2019)는 parameter-sharing transformer를 standard transformer와 �
 # 4. Experimental Results
 ## 4.1 Experimental Setup
 * Pre-train corpora: BookCorpus, Wikipedia (약 16GB)
-* BERT와 동일한 input foramt: $[CLS]{ x }_{ 1 }[SEP]{ x }_{ 2 }[SEP]$
+* BERT와 동일한 input format: $[CLS]{ x }_{ 1 }[SEP]{ x }_{ 2 }[SEP]$
 * maximum input length:512 10% 확률로 512보다 짧은 input sequence를 random하게 생성.
 * Wordpiece vocab size: 30,000 (BERT, XLNet)
 * n-gram masking을 사용하며 각 n-gram masking의 길이를 random하게 선택. 길이 n의 확률은 $p\left( n \right) =\frac { 1/n }{ \sum _{ k=1 }^{ N }{ 1/k }  } $

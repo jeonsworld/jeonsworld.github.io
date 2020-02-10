@@ -1,5 +1,5 @@
 ---
-title: 'ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators'
+title: '[논문리뷰] ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators'
 date: 2019-11-16
 category: 'NLP'
 draft: false

@@ -1,5 +1,5 @@
 ---
-title: 'Growing a Brain: Fine-Tuning by Increasing Model Capacity'
+title: '[논문리뷰] Growing a Brain: Fine-Tuning by Increasing Model Capacity'
 date: 2019-07-01
 category: 'Transfer_Learning'
 draft: false
