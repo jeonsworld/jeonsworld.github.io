@@ -1,5 +1,5 @@
 ---
-title: 'PLATO: Pre-trained Dialogue Generation Model with Discrete Latent Variable'
+title: '[논문리뷰] PLATO: Pre-trained Dialogue Generation Model with Discrete Latent Variable'
 date: 2019-10-05
 category: 'NLP'
 draft: false

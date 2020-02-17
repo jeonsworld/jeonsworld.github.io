@@ -1,5 +1,5 @@
 ---
-title: 'SegTree Transformer: Iterative Refinement of Hirarchical Features'
+title: '[논문리뷰] SegTree Transformer: Iterative Refinement of Hirarchical Features'
 date: 2019-07-07
 category: 'Graph_Neural_Network'
 draft: false

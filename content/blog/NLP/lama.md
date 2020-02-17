@@ -1,5 +1,5 @@
 ---
-title: 'Language Models as Knowledge Bases?'
+title: '[논문리뷰] Language Models as Knowledge Bases?'
 date: 2019-10-03
 category: 'NLP'
 draft: false

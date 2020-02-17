@@ -1,5 +1,5 @@
 ---
-title: 'EPIC-Fusion: Audio-Visual Temporal Binding for Egocentric Action Recognition'
+title: '[논문리뷰] EPIC-Fusion: Audio-Visual Temporal Binding for Egocentric Action Recognition'
 date: 2019-08-02
 category: 'Multi_Modal'
 draft: false

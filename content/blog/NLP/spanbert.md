@@ -1,5 +1,5 @@
 ---
-title: 'SpanBERT: Improving Pre-training by Representing and Predicting Spans'
+title: '[논문리뷰] SpanBERT: Improving Pre-training by Representing and Predicting Spans'
 date: 2019-07-19
 category: 'NLP'
 draft: false

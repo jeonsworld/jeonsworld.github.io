@@ -1,5 +1,5 @@
 ---
-title: 'Relative Position Encoding'
+title: 'Relative Position Encoding 간략 정리'
 date: 2020-02-06
 category: 'NLP'
 draft: false

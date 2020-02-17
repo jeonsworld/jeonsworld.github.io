@@ -1,5 +1,5 @@
 ---
-title: 'BERT is Not a Knowledge Base (Yet): Factual Knowledge vs. Name-Based Reasoning in Unsupervised QA'
+title: '[논문리뷰] BERT is Not a Knowledge Base (Yet): Factual Knowledge vs. Name-Based Reasoning in Unsupervised QA'
 date: 2020-01-01
 category: 'NLP'
 draft: false

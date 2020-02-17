@@ -1,5 +1,5 @@
 ---
-title: 'XLNet: Generalized Autoregressive Pretraining for Language Understanding'
+title: '[논문리뷰] XLNet: Generalized Autoregressive Pretraining for Language Understanding'
 date: 2019-06-01
 category: 'NLP'
 draft: false

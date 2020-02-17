@@ -1,5 +1,5 @@
 ---
-title: 'Mix-review: Alleviate Forgetting in the Pretrain-Finetune Framework for Neural Language Generation Models'
+title: '[논문리뷰] Mix-review: Alleviate Forgetting in the Pretrain-Finetune Framework for Neural Language Generation Models'
 date: 2019-10-16
 category: 'NLP'
 draft: false

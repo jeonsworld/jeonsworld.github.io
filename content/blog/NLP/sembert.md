@@ -1,5 +1,5 @@
 ---
-title: 'Semantics-aware BERT for Language Understanding'
+title: '[논문리뷰] Semantics-aware BERT for Language Understanding'
 date: 2020-02-07
 category: 'NLP'
 draft: false
