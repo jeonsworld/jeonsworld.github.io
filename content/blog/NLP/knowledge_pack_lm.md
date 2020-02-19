@@ -74,7 +74,7 @@ Petroni et al.,2019 은 일부 질문을 encoder only model에 적합하게 수�
 
 # 3. Experiments
 ## 3.1 Datasets
-다음과 같은 open-domain QA dataset을 고려한다.
+다음과 같은 open-domain QA dataset을 고려한다.  
 **Natural Questions**는 web query의 question dataset이며 각 질문에는 답변이 포함된 Wikipedia article이 함께 제공된다.  
 **WebQuestions**는 FreeBase의 해당 항목과 일치하는 web query의 question도 포함한다.  
 **TriviaQA**는 quiz league website의 question datset이다. 각 질문에는 답변이 포함된 web search 및 Wikipedia search page가 함께 제공된다.
