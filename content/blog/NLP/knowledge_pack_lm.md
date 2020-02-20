@@ -5,7 +5,7 @@ category: 'NLP'
 draft: false
 ---
 
-> How Much Knowledge Can You Pack Into the Parameters of a Language Model?  
+> **How Much Knowledge Can You Pack Into the Parameters of a Language Model?**  
 Adam Roberts, Colin Raffel, Noam Shazeer  
 https://colinraffel.com/publications/arxiv2020how.pdf
 
