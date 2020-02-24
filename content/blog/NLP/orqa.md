@@ -9,17 +9,6 @@ draft: false
 Kenton Lee, Ming-Wei Chang, Kristina Toutanova  
 https://arxiv.org/abs/1906.00300
 
----
-title: '[논문리뷰] Latent Retrieval for Weakly Supervised Open Domain Question Answering'
-date: 2020-02-21
-category: 'NLP'
-draft: false
----
-
-> **Latent Retrieval for Weakly Supervised Open Domain Question Answering**  
-Kenton Lee, Ming-Wei Chang, Kristina Toutanova  
-https://arxiv.org/abs/1906.00300
-
 
 # 1. Introduction
 MRC의 발전으로 Open-domain question answering(QA)가 관심받고 있는데, 이는 evidence는 input으로 제공되지 않고 open corpus에서 검색되어야 한다.
