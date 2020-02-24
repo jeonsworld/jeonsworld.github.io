@@ -2,7 +2,7 @@
 title: '[논문리뷰] Latent Retrieval for Weakly Supervised Open Domain Question Answering'
 date: 2020-02-21
 category: 'NLP'
-draft: false
+draft: true
 ---
 
 > **Latent Retrieval for Weakly Supervised Open Domain Question Answering**  

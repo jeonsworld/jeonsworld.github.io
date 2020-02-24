@@ -2,7 +2,7 @@
 title: '[논문리뷰] From English To Foreign Languages: Transferring Pre-trained Language Models'
 date: 2020-02-24
 category: 'NLP'
-draft: false
+draft: true
 ---
 
 
