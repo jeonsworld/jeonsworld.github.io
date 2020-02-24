@@ -100,8 +100,12 @@ BERT function은 하나 또는 두 개의 string input(${x}_{1}$ 및 선택적�
 CLS pooling token 또는 input token representation에 해당하는 vector를 반환한다.
 
 **Retriever component:**
-Retriever를 학습할 수 있도록 retrieval score를 question $q$와 evidence block $b$의 inner product로 정의한다.
+Retriever를 학습할 수 있도록 retrieval score를 question $q$와 evidence block $b$의 inner product로 정의한다.  
+$$
+{ h }_{ q }=\mathbf{{ W }_{ q }{ BERT }_{ Q }}(q)\mathsf{[CLS]}\\ { h }_{ b }=\mathbf{{ W }_{ b }{ BERT }_{ B }}(b)\mathsf{[CLS]}\\ { S }_{ retr }(b,q)={ h }_{ q }^{ \intercal  }{ h }_{ b }
+$$
 
+여기서 $\mathbf{{ W }}_{ q }$ 및 $\mathbf{{ W }}_{ b }$는 BERT output을 128 dimension vector로 projection하는 matrix이다.
 
 **Reader component:**
 Reader는 BERT에서 제안된 reading comprehension model의 span-based 변형이다.  
