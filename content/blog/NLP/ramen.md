@@ -111,7 +111,7 @@ Sparsemax는 sparse version의 softmax이며 주어진 외국어와 유사한 �
 외국어 word embedding을 초기화 한 후 english pre-trained LM의 영어 word embedding을 외국어 word embedding으로 대체하여 외국어 LM을 얻는다.
 그런 다음 monolingual data에서 외국어 word embedding만 fine-tuning한다.
 Training objective는 english pre-trainedLM의 training objective와 동일하다.
-Trained encoder $\psi(\theta)$는 association을 capture하는데 우수하기 때문에, 이 단계의 목적은 target LM이 association task를 위해 trained encoder를 이용할 수 있도록 target embedding을 추가로 optimization 하는것이다.
+Trained encoder $\Psi(\theta)$는 association을 capture하는데 우수하기 때문에, 이 단계의 목적은 target LM이 association task를 위해 trained encoder를 이용할 수 있도록 target embedding을 추가로 optimization 하는것이다.
 
 ## 2.3 Fine-tuning Bilingual LM
 Foreign language specific parameter를 pre-trained english LM에 plug하여 bilingual LM을 만든다.(그림 1)
