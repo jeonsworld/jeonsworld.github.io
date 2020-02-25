@@ -98,7 +98,7 @@ Low resource language의 경우 parallel data를 사용하지 못할 수 있다.
 두 언어의 word embedding으로 word translation probability를 추정한다.
 이러한 언어의 word vector는 fastText(Bojanowski et al., 2017)를 사용하여 학습한 다음 영어와 shared space에 align된다.
 Contextualized representation learning과 달리 word vector learning은 빠르고 computational resource가 저렴하다.  
-외국어 aligned vector ${ \bar { E }  }_{ f }$와 영어 ${ \bar { E }  }_{ e }$가 주어지면 word translation matrix $A\in { R }^{ \left| { V }_{ f } \right| \times \left| { V }_{ e } \right|  }$로써 다음과 같다.  
+외국어 aligned vector ${ \bar { E }  }_{ f }$와 영어 ${ \bar { E }  }_{ e }$가 주어지면 word translation matrix $A\in \mathbb{{ R }}^{ \left| { V }_{ f } \right| \times \left| { V }_{ e } \right|  }$로써 다음과 같다.  
 $$
 A=sparsemax\left( { \bar { E }  }_{ f }{ \bar { E }  }_{ e }^{ \intercal  } \right) \quad (3)
 $$
