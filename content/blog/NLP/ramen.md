@@ -46,7 +46,7 @@ Masked language model objective로 language model을 auto-encoding하는 방법�
 * Bilingual LM이 supervised dependency parsing task에서 뛰어난 feature extractor역할을 할 수 있음을 보여줌.
 
 # 2. Bilingual Pre-trained LMs
-Pre-trained language model의 backgound.
+Pre-trained language model의 backgound에 대한 설명.
 $E_{ e }$는 word-embedding이고 $\Psi \left( \theta  \right) $는 parameters $\theta$를 갖는 Transformer encoder 이다.
 ${ e }_{{ w }_{ i } }$는 word ${w}_{i}$의 embedding을 나타낸다. ($i.e.,\  { e }_{ { w }_{ i } }={ E }_{ e }\left[ { w }_{ 1 } \right] $)
 명확성을 위해 positional embedding 및 bias를 생략한다.  
@@ -72,7 +72,7 @@ Bilingual language LM을 빠르게 만들기 위해 english pre-trained model을
 
 
 ## 2.1 Initializing Target Embeddings
-초기 외국어 word embedding ${ E }_{ f }\in \mathbb{{ R }}^{ \left| { V }_{ f } \right| \times d }$를 학습하는 우리의 접근방식은 trained english word embedding ${ E }_{ e }\in \mathbb{{ R }}^{ \left| { V }_{ e } \right| \times d }$를 ${E}_{f}$에 mapping하여 외국어 단어와 영어 단어가 의미가 비슷하면 embedding도 유사하다.  
+초기 외국어 word embedding ${ E }_{ f }\in \mathbb{{ R }}^{ \left| { V }_{ f } \right| \times d }$를 학습하는 우리의 접근방식은 trained english word embedding ${ E }_{ e }\in \mathbb{{ R }}^{ \left| { V }_{ e } \right| \times d }$를 ${E}_{f}$에 mapping하여 외국어 단어와 영어 단어가 의미가 비슷하면 embedding도 유사하다는 것이다.  
 Gu et al.,(2018)에서 universal lexical sharing의 아이디어를 차용하여 영어 단어 embedding ${ E }_{ e }\left[ j \right] \in \mathbb{{ R }}^{ d }$의 linear combination으로 각 외국어 embedding ${ E }_{ f }\left[ i \right] \in \mathbb{{ R }}^{ d }$를 나타낸다.  
 $$
 { E }_{ f }\left[ i \right] =\sum _{ j=1 }^{ \left| { V }_{ e } \right|  }{ { a }_{ ij } } { E }_{ e }\left[ j \right] ={ a }_{ i }{ E }_{ e }\quad (1)
@@ -84,7 +84,7 @@ $$
 1. 영어와 외국어의 parallel data.
 2. 영어 및 외국어 monolingual data.
 
-**Learning from Parallel Corpus:**
+**Learning from Parallel Corpus:**  
 영어-외국어 corpus가 주어졌을때, fast-align과 같은 toolkit을 사용하여 모든 (English-foreign) pair $\left( e,f \right) $에 대한 word translation probability $p\left( e|f \right) $를 추정할 수 있다.
 다음과 같이 assign한다.
 $$
@@ -92,6 +92,7 @@ $$
 $$
 ${ a }_{ i }$는 word alignment에서 추정되므로 sparse vector이다.
 
+**Learning from Monolingual Corpus:**  
 Low resource language의 경우 parallel data를 사용하지 못할 수 있다.
 이 경우에는 monolingual data(e.g., wikipedias)에만 의존한다.
 두 언어의 word embedding으로 word translation probability를 추정한다.
