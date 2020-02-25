@@ -1,8 +1,8 @@
 ---
 title: '[논문리뷰] From English To Foreign Languages: Transferring Pre-trained Language Models'
-date: 2020-02-24
+date: 2020-02-25
 category: 'NLP'
-draft: true
+draft: false
 ---
 
 
@@ -162,3 +162,72 @@ $$
 두 경우 모두 외국어 단어와 모든 단어가 영어 word embedding에서 초기화 될 수 있는것은 아니다. 이러한 단어는 Gaussian $\mathcal{N}\left( 0,\frac { 1 }{ { d }^{ 2 } }  \right) $에서 임의로 초기화 된다.
 
 
+## 3.3 Hyper-parameters
+RAMEN-BASE는 175k step RAMEN-LARGE는 275k step을 진행하며 처음 25,000 step은 language specific parameter를 위한것이다.
+Mini-batch의 균형을 잡는 이 전략은 multilingual neural machine translation(Firat et al., 2016; Lee et al., 2017)에서 사용되었다.
+
+Learning rate 1e-4, fast weight updates $k=5$, interpolation parameter $\alpha=0.5$로 Adam을 wrap하는 Lookahead optimizer를 사용.
+Adam optimizer의 경우 처음 4000 step에서 learning rate를 1e-7에서 1e-4로 linear하게 증가시킨다음 inverse square root decay를 따른다.
+
+XNLI 및 UD에서 RAMEN을 fine-tuning할때 32의 mini-batchsize, lr 1e-5를 사용.
+Epoch은 XNLI 및 UD task에 대해 각각 4, 50으로 설정.
+
+# 4. Results
+## 4.1 Cross-lingual Natural Language Inference
+XNLI testset 정확도는 표1과 같다.
+결과를 discuss하기전에 이 실험에서 가장 공정한 비교는 mBERT와 RAMEN-BASE+BERT간의 단일 언어로만 비교한것이다.
+
+먼저 BERT의 transfer result에 대해 discuss한다.
+fastText vector에서 초기화된 RAMEN-BASE는 mBERT보다 평균 1.9포인트 약간 뛰어나고 아랍어에서 3.3포인트 뛰어나다.
+RAMEN-BASE는 parallel data에서 초기화할때 평균 0.8 포인트를 추가로 얻는다.
+BERT-LARGE는 BERT-BASE보다 뛰어났을뿐 아니라 외국어에 adaptation할때도 강점이 있었다.
+
+RAMAN-BASE+RoBERTa는 RAMEN-BASE+BERT보다 평균 2.9 및 2.3 포인트 뛰어났다.
+
+![table1](./img/ramen/table1.png)
+
+
+## 4.2 Universal Dependency Parsing
+표2는 zero-shot dependency parsing을 위한 Labeled Attachment Score(LAS)를 나타낸다.
+먼저 mBERT와 1개 언어로 초기화된 RAMEN-BASE+BERT를 비교한다. 후자는 아랍어를 제외한 5개 언어에서 전자보다 우수하다.
+RAMEN+RoBERTa는 유사한 architecture(12 layer 및 24 layer) 및 초기화를 통해 대부분의 언어에서 RAMEN+BERT보다 성능이 우수하다.
+
+![table2](./img/ramen/table2.png)
+
+
+
+# 5. Analysis
+## 5.1 Impact of initialization
+외부 embedding을 초기화흐는 것이 본 논문 접근방식의 backbone이다.
+초기화가 양호하면 zero-shot transfer result가 향상되고 fast adaptation이 가능하다.
+Good initialization의 중요성을 확인하기 위해 외부 word embedding이 있는 RAMEN-BASE+RoBERTa를 $\mathcal{N}\left( 0,\frac { 1 }{ { d }^{ 2 } }  \right) $에서 무작위로 초기과한다.  
+표3은 랜덤 초기화의 XNLI 및 UD task의 결과를 보여준다.
+Aligned fastText vector를 사용한 초기화와 비교하여 랜덤 초기화는 RAMEN-BASE의 zero-shot 성능을 XNLI의 경우 15.9%, UD의 경우 27.8포인트 줄인다.
+또한 SOV language(Arabic and Hindi)의 zero-shot parsing에서 랜덤 초기화가 수행된다.
+
+![table3](./img/ramen/table3.png)
+
+
+## 5.2 Are Contextual representations from RAMEN also good for supversived parsing?
+모든 RAMEN model은 영어로 제작되었으며 zero-shot cross-lingual task를 위해 영어로 조정되었다.
+실험에서 보여준 것처럼 이러한 task에서 RAMEN이 잘 작동할것으로 기대하는 것이 합리적이다.
+그러나 supervised task에 대해 좋은 feature extractor인가?
+UD dataset에 대한 supervised dependency parsing을 위한 model을 평가함으로써 질문에 대한 부분적인 답변을 제공한다.
+
+![table4](./img/ramen/table4.png)
+
+RAMEN-based parser를 학습하고 평가하기 위해 UD에 제공된 train/dev/test split을 사용.
+표4에는 supervised parser의 결과(LAS)가 요약되어 있다.
+공정한 비교를 위해 mBERT를 기준으로 선택하고 모든 RAMEN model은 aligned fastText vector에서 초기화된다.
+전반적으로 결과는 RAMEN의 contextual representation을 supervised task에 사용할 수 있음을 나타낸다.
+
+
+## 5.3 How does linguistic knowledge transfer happen through each training stages?
+각 교육단계에서 word embedding(0k update)초기화, fine-tuning target embedding(25K), 영어 및 target language 모두에서 model fine-tuning(at each 25K updates)의 성능을 평가한다.
+
+![fig2](./img/ramen/fig2.png)
+
+Language similarity는 semantic보다 syntax에 더 많은 영향을 미친다.
+영어 encoder를 tuning하지 않으면 프랑스어는 영어와 밀접한 관련이 있기 때문에 50.3의 결과인 반면 SOV language는 SVO encoder를 사용하여 4.2 및 6.4 포인트에 도달한다.
+중국어는 SVO 순서를 가지고 head-final이지만 영어는 head-inital인것으로 간주된다.
+아마도 이것이 중국어의 성능 저하를 설명하는것 같다.
