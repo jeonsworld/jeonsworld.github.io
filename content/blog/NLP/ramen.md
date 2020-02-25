@@ -143,7 +143,7 @@ Classification task에서는 XNLI dataset을 사용하고 parsing task에서는 
 
 **Remark on BPE:**
 Lample et al.,(2018a)에 따르면 언어간 subword를 공유하면 embedding space사이의 alignment가 향상된다.
-Wu & Dredze(2019)는 겹치는 subword의 백분율과 mBERT의 언아간 zero-shot transfer 성능간의 강한 correlation을 관찰한다.
+Wu & Dredze(2019)는 겹치는 subword의 백분율과 mBERT의 언어간 zero-shot transfer 성능간의 강한 correlation을 관찰한다.
 그러나 현재 접근방식에서 source와 target간의 subword는 공유되지 않는다. 영어와 외국어에 모두 포함된 subword는 두 가지 다른 embedding이 존재한다.
 
 
