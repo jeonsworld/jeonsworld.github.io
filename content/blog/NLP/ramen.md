@@ -46,8 +46,8 @@ Masked language model objective로 language model을 auto-encoding하는 방법�
 * Bilingual LM이 supervised dependency parsing task에서 뛰어난 feature extractor역할을 할 수 있음을 보여줌.
 
 # 2. Bilingual Pre-trained LMs
-Pre-trained language model의 backgound에 대한 설명.
-$E_{ e }$는 word-embedding이고 $\Psi \left( \theta  \right) $는 parameters $\theta$를 갖는 Transformer encoder 이다.
+Pre-trained language model의 backgound를 설명한다.
+$E_{ e }$는 영어 word-embedding이고 $\Psi \left( \theta  \right) $는 parameters $\theta$를 갖는 Transformer encoder 이다.
 ${ e }_{{ w }_{ i } }$는 word ${w}_{i}$의 embedding을 나타낸다. ($i.e.,\  { e }_{ { w }_{ i } }={ E }_{ e }\left[ { w }_{ 1 } \right] $)
 명확성을 위해 positional embedding 및 bias를 생략한다.  
 Pre-trained LM은 일반적으로 다음 계산을 수행한다.
@@ -62,9 +62,9 @@ Autoregressive LM은 previous token들을 통해 next token$({y}_{i}={w}_{i+1})$
 English pre-trained LM이 주어지면 limit computational resource budget하에서 영어에 대한 bilingual LM과 주어진 target language $f$를 학습하고자 한다.
 Bilingual language LM을 빠르게 만들기 위해 english pre-trained model을 target model에 adaptation한다.  
 우리의 접근방식은 세 단계로 구성된다.
-1. Target word와 이에 상응하는 영어 단어의 embedding이 서로 가깝도록 embedding space에서 target language word-embedding ${ E }_{ f }$ 를 초기화한다.(2.1절)
-2. Target embedding과 English encoder $\Psi \left( \theta  \right)$에서 target LM을 만든다. 그런 다음 $\Psi \left( \theta  \right) $를 고정하고 target embedding을 fine-tuning한다.
-3. 마지막으로 ${E}_{e}$, ${E}_{f}$ 및 $\Psi \left( \theta  \right)$ 의 bilingual LM을 구성하고 모든 parameter를 fine-tuning한다.
+1. Target word와 이에 상응하는 영어 단어의 embedding이 서로 가깝도록 영어 embedding space에서 target language word-embedding ${ E }_{ f }$ 를 초기화한다.(2.1절)
+2. Target embedding과 English encoder $\Psi \left( \theta  \right)$에서 target LM을 만든다. 그런 다음 $\Psi \left( \theta  \right) $를 고정하고 target embedding을 fine-tuning한다.(2.2절)
+3. 마지막으로 ${E}_{e}$, ${E}_{f}$ 및 $\Psi \left( \theta  \right)$ 의 bilingual LM을 구성하고 모든 parameter를 fine-tuning한다.(2.3절)
 
 그림 1은 접근방식의 마지막 두 단계를 보여준다.
 
@@ -72,7 +72,7 @@ Bilingual language LM을 빠르게 만들기 위해 english pre-trained model을
 
 
 ## 2.1 Initializing Target Embeddings
-초기 외국어 word embedding ${ E }_{ f }\in \mathbb{{ R }}^{ \left| { V }_{ f } \right| \times d }$를 학습하는 우리의 접근방식은 trained english word embedding ${ E }_{ e }\in \mathbb{{ R }}^{ \left| { V }_{ e } \right| \times d }$를 ${E}_{f}$에 mapping하여 외국어 단어와 영어 단어가 의미가 비슷하면 embedding도 유사하다는 것이다.  
+우리의 접근방식은 초기 외국어 word embedding ${ E }_{ f }\in \mathbb{{ R }}^{ \left| { V }_{ f } \right| \times d }$를 학습하여 trained english word embedding ${ E }_{ e }\in \mathbb{{ R }}^{ \left| { V }_{ e } \right| \times d }$를 ${E}_{f}$에 mapping하면 외국어 단어와 영어 단어가 의미가 비슷하면 embedding도 유사하다는 것이다.  
 Gu et al.,(2018)에서 universal lexical sharing의 아이디어를 차용하여 영어 단어 embedding ${ E }_{ e }\left[ j \right] \in \mathbb{{ R }}^{ d }$의 linear combination으로 각 외국어 embedding ${ E }_{ f }\left[ i \right] \in \mathbb{{ R }}^{ d }$를 나타낸다.  
 $$
 { E }_{ f }\left[ i \right] =\sum _{ j=1 }^{ \left| { V }_{ e } \right|  }{ { a }_{ ij } } { E }_{ e }\left[ j \right] ={ a }_{ i }{ E }_{ e }\quad (1)
@@ -84,7 +84,7 @@ $$
 1. 영어와 외국어의 parallel data.
 2. 영어 및 외국어 monolingual data.
 
-**Learning from Parallel Corpus:**  
+**Learning from Parallel Corpus:**
 영어-외국어 corpus가 주어졌을때, fast-align과 같은 toolkit을 사용하여 모든 (English-foreign) pair $\left( e,f \right) $에 대한 word translation probability $p\left( e|f \right) $를 추정할 수 있다.
 다음과 같이 assign한다.
 $$
@@ -92,13 +92,14 @@ $$
 $$
 ${ a }_{ i }$는 word alignment에서 추정되므로 sparse vector이다.
 
-**Learning from Monolingual Corpus:**  
+
+**Learning from Monolingual Corpus:**
 Low resource language의 경우 parallel data를 사용하지 못할 수 있다.
 이 경우에는 monolingual data(e.g., wikipedias)에만 의존한다.
 두 언어의 word embedding으로 word translation probability를 추정한다.
-이러한 언어의 word vector는 fastText(Bojanowski et al., 2017)를 사용하여 학습한 다음 영어와 shared space에 align된다.
+이러한 언어들의 word vector는 fastText(Bojanowski et al., 2017)를 사용하여 학습한 다음 영어와 shared space에 align된다.
 Contextualized representation learning과 달리 word vector learning은 빠르고 computational resource가 저렴하다.  
-외국어 aligned vector ${ \bar { E }  }_{ f }$와 영어 ${ \bar { E }  }_{ e }$가 주어지면 word translation matrix $A\in \mathbb{{ R }}^{ \left| { V }_{ f } \right| \times \left| { V }_{ e } \right|  }$를 다음과 같이 계산한다.  
+외국어 aligned vector ${ \bar { E }  }_{ f }$와 영어 ${ \bar { E }  }_{ e }$가 주어지면 word translation matrix $A\in { R }^{ \left| { V }_{ f } \right| \times \left| { V }_{ e } \right|  }$는 다음과 같이 계산한다.  
 $$
 A=sparsemax\left( { \bar { E }  }_{ f }{ \bar { E }  }_{ e }^{ \intercal  } \right) \quad (3)
 $$
@@ -111,7 +112,7 @@ Sparsemax는 sparse version의 softmax이며 주어진 외국어와 유사한 �
 외국어 word embedding을 초기화 한 후 english pre-trained LM의 영어 word embedding을 외국어 word embedding으로 대체하여 외국어 LM을 얻는다.
 그런 다음 monolingual data에서 외국어 word embedding만 fine-tuning한다.
 Training objective는 english pre-trainedLM의 training objective와 동일하다.
-Trained encoder $\Psi(\theta)$는 association을 capture하는데 우수하기 때문에, 이 단계의 목적은 target LM이 association task를 위해 trained encoder를 이용할 수 있도록 target embedding을 추가로 optimization 하는것이다.
+Trained encoder $\psi(\theta)$는 association을 capture하는데 우수하기 때문에, 이 단계의 목적은 target LM이 association task를 위해 trained encoder를 이용할 수 있도록 target embedding을 추가로 optimization 하는것이다.
 
 ## 2.3 Fine-tuning Bilingual LM
 Foreign language specific parameter를 pre-trained english LM에 plug하여 bilingual LM을 만든다.(그림 1)
@@ -132,7 +133,7 @@ BERT-BASE를 사용하여 mBERT model과 성능을 비교할 수 있고 BERT-LAR
 ## 3.1 Data
 프랑스어, 러시아어, 아랍어, 중국어, 힌디어 및 베트남어 6가지 target language에 대한 접근방식을 평가한다.  
 Parallel data를 사용하여 foreign specific parameter를 초기화하는 경우 Lample & Conneau (2019)의 task와 동일한 dataset을 사용한다.  
-Monolingual data를 사용하여 foreign parameter를 초기화하는 경우 fastText에서 pre-train word vector를 사용하여 word translation probability를 estimation한다. (식3)
+Monolingual data를 사용하여 foreign parameter를 초기화하는 경우 fastText의 pre-train word vector를 사용하여 word translation probability를 estimation한다. (식3)
 Orthogonal Procrustes(Artetxe et al., 2016; Lample et al., 2018b; Joulin et al., 2018)를 사용하여 이러한 vector를 common space에 align한다.
 
 Pre-trained model에서 제공된 tokenizer를 사용하여 영어를 tokenization한다. target language의 경우 BERT 및 RoBERTa에서 fastBPE를 사용하여 각각 30,000개 및 50,000개의 code를 학습한다.
@@ -143,7 +144,7 @@ Classification task에서는 XNLI dataset을 사용하고 parsing task에서는 
 
 **Remark on BPE:**
 Lample et al.,(2018a)에 따르면 언어간 subword를 공유하면 embedding space사이의 alignment가 향상된다.
-Wu & Dredze(2019)는 겹치는 subword의 백분율과 mBERT의 언어간 zero-shot transfer 성능간의 강한 correlation을 관찰한다.
+Wu & Dredze(2019)는 겹치는 subword의 백분율과 mBERT의 언아간 zero-shot transfer 성능간의 강한 correlation을 관찰한다.
 그러나 현재 접근방식에서 source와 target간의 subword는 공유되지 않는다. 영어와 외국어에 모두 포함된 subword는 두 가지 다른 embedding이 존재한다.
 
 
