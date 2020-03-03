@@ -195,7 +195,7 @@ $$
 $$
 
 $a\in TEXT\left( b \right) $는 answer string $a$가 evidence block $b$에 나타나는지 여부를 나타낸다.
-Expereiment에서 $c=5000%을 사용한다.
+Expereiment에서 $c=5000$을 사용한다.
 Final loss에는 두 가지 update가 다음과 같이 포함된다.  
 $$
 L\left( q,a \right) ={ L }_{ early }\left( q,a \right) +{ L }_{ full }\left( q,a \right)
