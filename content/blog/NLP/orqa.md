@@ -47,7 +47,7 @@ Reading comprehension과 달리 evidence는 task의 일부가 아닌 model로부
 ![table1](./img/orqa/table1.png)
 
 ## 2.2 Formal Definitions
-Model은 B의 evidence text block으로 분할되는 unstructured text corpus와 관련하여 정의된다.
+Model은 evidence text block $B$로 분할되는 unstructured text corpus와 관련하여 정의된다.
 답변 도출은 pair $(b,s)$이며 여기서 $1\le b\le B$는 evidence block의 index를 나타내고 $s$는 block $b$의 text span을 나타낸다.
 Span의 시작 및 끝의 token index는 각각 $\mathsf{START}(s)$ 및 $\mathsf{END}(s)$로 나타낸다.
 
