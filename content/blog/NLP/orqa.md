@@ -1,8 +1,8 @@
 ---
 title: '[논문리뷰] Latent Retrieval for Weakly Supervised Open Domain Question Answering'
-date: 2020-02-21
+date: 2020-03-03
 category: 'NLP'
-draft: true
+draft: false
 ---
 
 > **Latent Retrieval for Weakly Supervised Open Domain Question Answering**  
@@ -125,3 +125,85 @@ Latent-variable method는 모호성으로 인해 naive하게 적용하기 어렵
 
 우리는 unsupervised pre-training을 통해 retriever를 신중하게 초기화하여 이러한 문제를 해결한다.
 Pre-trained retriever를 사용하면 (1) Wikipedia의 모든 evidence block을 pre-encode하여 fine-tuning중에 동적이지만 빠른 top-k 검색을 수행할 수 있으며 (2) 모호성에서 멀어지게 검색에 편향을 줄 수 있다.
+
+
+# 4. Inverse Cloze Task
+제안된 pre-training procedure의 objective는 retriever가 QA에 대한 evidence retriever와 매우 유사한 unsupervised task를 해결하는 것이다.
+
+직관적으로 useful evidence는 질문의 entity, event, 및 relation에 대해 논의한다.
+또한 질문에 없는 추가 정보(답변)가 포함되어 있다.
+Question-evidence pair의 unsupervised analog는 sentence-context pair이다.
+Sentence에 context는서 의미상으로 관련이 있으며 sentence에서 누락된 정보를 유추하는데 사용될 수 있다.
+
+![fig2](./img/orqa/fig2.png)
+
+직관에 따라 본 논문에서는 ICT(Inverse Cloze Task)로 retrieval module을 pre-train할 것을 제안한다.
+Standard Cloze task에서 objective는 context를 기반으로 masked-out text를 예측하는 것이다.
+대신 ICT는 문장의 역추정을 요구하고 문장의 맥락을 예측한다(그림2).
+다음과 같이 Downstream retrieval과 유사한 차별적인 objective를 사용한다.  
+$$
+{ P }_{ ICT }\left( b|q \right) =\frac { exp\left( { S }_{ retr }\left( b,q \right)  \right)  }{ \sum _{ { b }^{ \prime  }\in BATCH }^{  }{ exp\left( { S }_{ retr }\left( { b }^{ \prime  },q \right)  \right)  }  }
+$$
+
+여기서 $q$는 pseudo-question으로 처리되는 임의의 문장이고 $b$는 $q$ 둘러싼 text이며 $BATCH$는 sampled negative로 사용되는 batch의 evidence block 집합이다.
+
+Pseudo-question이 evidence에 없기 때문에 ICT의 중요한 측면은 word matching feature 이상을 학습하는 것이 필요하다.
+예를 들어 그림2의 pseudo-question은 "Zebras"를 명시적으로 언급하지 않지만, retriever는 Zebra에 대해 설명하는 context를 선택할 수 있어야 한다.
+불특정 언어에서 의미를 유추할 수 있다는 것이 QA를 전통적인 IR과 차별화하는 이유이다.
+
+그러나 retriever가 단어 매칭의 중첩을 수행하는 것을 배우게 하고싶지는 않다.
+이는 궁극적으로 검색에 매우 유용한 기능이기 때문이다.
+따라서 문장의 문맥에서 90%를 제거하여 model이 필요할 때 추상적인 표현과 사용 가능한 낮은 수준의 word matching feature를 모두 배우도록 권장한다.
+
+ICT pre-training은 두 가지 주요 목표를 달성한다.
+1. Pre-train 및 fine-tuning동안 질문 사이의 불일치에도 불구하고, zero-shot evidence retrieval 성능이 latent-variable 학습을 bootstrap하기에 충분할 것으로 기대한다.
+2. Pre-trained evidence block과 downstream evidence block간에는 이러한 불일치가 없다. Block encoder ${ BERT }_{ B }\left( b \right) $가 추가적인 학습 없이 잘 작동할 것으로 기대할 수 있다. Downstream data에서는 question encoder만 fine-tuning하면 된다.
+
+
+다음절에서 볼 수 있듯이, 이 두가지 속성은 계산 가능한 inference 및 end-to-end learning을 가능하게 하는데 중요하다.
+
+
+# 5. Inference
+Fixed block encoder는 이미 유용한 검색 표현을 제공하기 때문에 evidence corpus에서 모든 block encoding을 pre-compute할 수 있다.
+결과적으로 fine-tuning중에 많은 evidence block을 다시 encoding할 필요가 없으며 Locality Sensitive Hashing과 같은 도구를 사용하여 pre-compile할 수 있다.
+
+Pre-complie된 index의 경우 inference는 standard beam-search procedure를 따른다.
+Top-k evidence block를 검색하고 해당 k block에 대한 reader socre만 계산한다.
+Single inference step에서 top-k evidence block을 고려하지만 다음절에서 논의되는 것처럼 weakly supervised QA data에 따라 question encoder가 fine-tuning되므로 이 set는 학습중에 동적으로 변경된다.
+
+
+# 6. Learning
+ICT는 trivial zero-shot retrieval를 제공해야 하기 때문에 학습은 비교적으로 간단하다.
+먼저 answer derivation에 대한 분포를 다음과 같이 정의한다.  
+$$
+P\left( b,s|q \right) =\frac { exp\left( S\left( b,s,q \right)  \right)  }{ \sum _{ b\prime \in TOP\left( K \right)  }^{  }{ \sum _{ s\prime \in b\prime  }^{  }{ exp\left( S\left( b\prime ,s\prime ,q \right)  \right)  }  }  }
+$$
+
+
+$TOP(K)$는 ${S}_{retr}$를 통해 검색된 top $k$ block을 의미한다.
+Experiment에서는 $k=5$를 사용한다.
+Gold answer string $a$가 주어지면 beam을 통해 marginal log-likelihood를 최적화한다.  
+$$
+{ L }_{ full }\left( q,a \right) =-log\sum _{ b\in TOP\left( K \right)  }^{  }{ \sum _{ s\in b,a=TEXT\left( s \right)  }^{  }{ P\prime \left( b,s|q \right)  }  }
+$$
+
+$a=TEXT\left( s \right)$는 answer string $a$가 정확히 span $s$와 일치하는지 여부를 나타낸다.  
+보다 적극적인 학습을 장려하기 위해 초기 update도 포함한다.
+여기서 더 많은 evidence blocks $c$를 고려하지만 검색 점수만 update하므로 계산은 저렴하다.  
+$$
+{ P }_{ early }\left( b|q \right) =\frac { exp\left( { S }_{ retr }\left( b,q \right)  \right)  }{ \sum _{ b\prime \in TOP\left( C \right)  }^{  }{ exp\left( { S }_{ retr }\left( b\prime ,q \right)  \right)  }  } \\ { L }_{ early }\left( q,a \right) =-log\sum _{ b\in TOP\left( C \right) ,a\in TEXT\left( b \right)  }^{  }{ { P }_{ early }\left( b|q \right)  }
+$$
+
+$a\in TEXT\left( b \right) $는 answer string $a$가 evidence block $b$에 나타나는지 여부를 나타낸다.
+Expereiment에서 $c=5000%을 사용한다.
+Final loss에는 두 가지 update가 다음과 같이 포함된다.  
+$$
+L\left( q,a \right) ={ L }_{ early }\left( q,a \right) +{ L }_{ full }\left( q,a \right)
+$$
+
+일치하는 답변이 발견되지 않으면 example이 폐기된다.
+무작위 초기화로 거의 모든 사례가 폐기될것으로 예상하겠지만, ICT pre-train으로 인해 실제 사례의 10% 미만을 폐기한다.
+
+앞에서 언급했듯이 evidence block encoder의 parameter를 제외한 모든 parameter를 fine-tuning한다.
+Query encoder는 학습 가능하므로 model은 evidence block을 검색하는 방법을 학습할 수 있다.
+이 표현력은 blackbox IR system과의 중요한 차이점으로, 더 많은 증거를 검색해야만 recall을 개선할 수 있다.
