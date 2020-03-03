@@ -91,7 +91,7 @@ ORQA의 점수 도출 방식은 그림1에서 확인할 수 있다.
 ![fig1](./img/orqa/fig1.png)
 
 Transfer learning의 최근 발전에 따라 모든 scoring component는 unsupervised language modeling data로 부터 pre-train된 bidirectional transformer인 BERT에서 파생된다.
-해당 task에서 rlevant abstraction은 다음 function으로 설명할 수 있다.
+해당 task에서 relevant abstraction은 다음 function으로 설명할 수 있다.
 $$
 \mathsf{BERT}({ x }_{ 1 },\left[ { x }_{ 2 } \right] =\left\{ \mathsf{CLS}:{ h }_{ CLS },1:{ h }_{ 1 },2:{ h }_{ 2 },\dots  \right\}
 $$
