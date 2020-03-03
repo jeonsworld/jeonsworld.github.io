@@ -200,7 +200,7 @@ RAMEN+RoBERTa는 유사한 architecture(12 layer 및 24 layer) 및 초기화를 
 
 # 5. Analysis
 ## 5.1 Impact of initialization
-외부 embedding을 초기화흐는 것이 본 논문 접근방식의 backbone이다.
+외부 embedding을 초기화하는 것이 본 논문 접근방식의 backbone이다.
 초기화가 양호하면 zero-shot transfer result가 향상되고 fast adaptation이 가능하다.
 Good initialization의 중요성을 확인하기 위해 외부 word embedding이 있는 RAMEN-BASE+RoBERTa를 $\mathcal{N}\left( 0,\frac { 1 }{ { d }^{ 2 } }  \right) $에서 무작위로 초기과한다.  
 표3은 랜덤 초기화의 XNLI 및 UD task의 결과를 보여준다.
