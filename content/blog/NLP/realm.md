@@ -144,7 +144,7 @@ ${ J }_{ x }$는 $x$의 [MASK] token 수이며 ${w}_{j}$는 token ${y}_{j}$에 �
 
 Open-QA fine-tuning을 위해 answer string $y$를 생성하려고 한다.
 이전의 RC work(Rajpurkar et al., 2016; Seo et al., 2016; Lee et al., 2016; Clark & Gardner, 2017)에 따라 정답 $y$가 일부 문서 $z$에서 연속적인 token sequence로 발견될 수 있다고 가정한다.
-$S\left( z,y \right) $를 $z$에서 $y와 일치하는 span matching으로 설정한다.
+$S\left( z,y \right) $를 $z$에서 $y$와 일치하는 span matching으로 설정한다.
 그런 다음 $p\left( y|z,x \right) $를 다음과 같이 정의할 수 있다.
 
 $$
@@ -309,7 +309,7 @@ End-to-end 결과 외에도 fine-tuning을 적용하기 전에 상위 5개의 �
 Encoder와 retiriever는 모두 REALM 학습의 이점을 개별적으로 얻을 수 있지만 최상의 결과를 위해서는 두 component가 동시에 작동해야 한다.
 
 **Masking scheme:**
-Masking scheme (1) random token masking intro-duced in BERT (Devlin et al., 2018) and (2) random span masking proposed by SpanBERT (Joshi et al., 2019) 두가지를 비교한다.
+Masking scheme (1) random token masking introduced in BERT (Devlin et al., 2018) and (2) random span masking proposed by SpanBERT (Joshi et al., 2019) 두가지를 비교한다.
 이러한 span masking은 표준 BERT 교육 (Joshi et al., 2019)을 사용한 이전 연구에서 영향을 미치지 않는 것으로 나타 났지만 REALM에서는 중요하다.
 직관적으로, latent variable learning은 검색의 유용성에 크게 의존하므로 일관된 학습 신호(consistent learning signal)에 더 민감하다.
 
