@@ -1,5 +1,5 @@
 ---
-title: 'Pre-training Tasks for Embedding-based Large-scale Retrieval'
+title: '[논문리뷰] Pre-training Tasks for Embedding-based Large-scale Retrieval'
 date: 2020-03-29
 category: 'NLP'
 draft: false
