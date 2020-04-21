@@ -6,7 +6,7 @@ draft: false
 ---
 
 
-> Pre-training Tasks for Embedding-based Large-scale Retrieval  
+> **Pre-training Tasks for Embedding-based Large-scale Retrieval**  
 Wei-Cheng Chang, Felix X. Yu, Yin-Wen Chang, Yiming Yang, Sanjiv Kumar  
 https://openreview.net/pdf?id=rkg-mA4FDr
 
