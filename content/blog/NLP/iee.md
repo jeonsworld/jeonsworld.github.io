@@ -106,7 +106,7 @@ subword unit types $T=\left\{ { s }_{ 1 },\dots ,{ s }_{ t } \right\} $의 경�
 ## 3.3 IEE-based Sentence Classification
 그림2는 제안하는 IEE를 사용하는 sentence classification을 위한 network architecture를 보여준다.
 
-![fig2](./fig2.png)
+![fig2](./img/iee/fig2.png)
 
 주어진 한국어 문장은 어절 리스트 $\left\{ { w }_{ 1 },{ w }_{ 2 },\dots ,{ w }_{ s } \right\} .$ 이다.
 각 어절 ${w}_{i}$에 대해 ${ e }_{ i }\left( { w }_{ i } \right) $는 IEE matrix $E\left( s \right) =\left[ { e }_{ i }\left( { w }_{ 1 } \right) ,{ e }_{ i }\left( { w }_{ 2 } \right) ,\dots ,{ e }_{ i }\left( { w }_{ s } \right)  \right] \in \mathbb{ {R} }^{ s\times d\left( I \right)  }$를 얻기 위해 3.2절에서 제안하는 IEE network로 먼저 계산된다. 위 공식에서 $d\left( I \right)$는 IEE vector의 차원이다.  
