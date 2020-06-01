@@ -33,15 +33,13 @@ T5 및 BART와 마찬가지로 RAG는 seq2seq task에서 fine-tuning되기 때�
 DPR document encoder를 사용하여 각 document에 대한 document embedding을 계산하고 (inference:)효율적인 검색을 위해 Hierarchical Navigable Small World approximation를 사용하는 FAISS를 통해 단일 index를 만든다.
 
 # 2. Methods
-Input sequence $x$를 사용하여 text passage $z$를 검색하고 target
-sequence $y$를 생성하는 RAG model에 대해 살펴본다. 그림1에서 알 수
-있듯이 model은 두 가지 component를 황용한다:  
+Input sequence $x$를 사용하여 text passage $z$를 검색하고 target sequence $y$를 생성하는 RAG model에 대해 살펴본다.  
+그림1에서 알 수 있듯이 model은 두 가지 component를 활용한다:  
 **(i)**: query $x$에(top-k truncated) 대해 distribution을 반환하는
 parameter $\eta$를 가진 retriever ${ p }_{ \eta }\left( z|x \right) $  
-**(ii)**: previous token ${ y }_{ 1:i-1 }$, original input $x$ 및
-retrieved passage $z$의 context를 통해 현재 token을 생성하는 $\theta$로
-parameterized된 generator ${ p }_{ \theta }\left( { y }_{ i }|x,z,{ y
-}_{ 1:i-1 } \right) $  
+**(ii)**: previous token ${ y }_{ 1:i-1 }$, original input $x$ 및 retrieved passage $z$의 context를 통해 현재 token을 생성하는 $\theta$로 parameterized된 generator ${ p }_{ \theta }\left( { y }_{ i }|x,z,{ y }_{ 1:i-1 } \right) $
+
+
 ![fig1](./img/rag/fig1.png)
 
 Retriever 및 generator를 end-to-end로 학습하기 위해 검색된 document를 latent variable로 취급한다.
@@ -94,20 +92,15 @@ Test 및 decoding 단계에서 RAG-sequence와 RAG-token은 ${ argmax }_{ y }p\l
 **RAG-Token**  
 RAG-Token Model은 transition probability를 가진 auto-regressive seq2seq
 generator로 볼 수 있다.  
-$$ { p }_{ \theta }^{ \prime }\left( { y }_{ i }|x,{ y }_{ 1:i-1 }
-\right) =\sum _{ z\in top-k\left( p\left( \cdot |x \right) \right) }^{
-}{ { p }_{ \eta } } \left( { z }_{ i }|x \right) { p }_{ \theta }\left(
-{ y }_{ i }|x,{ z }_{ i },{ y }_{ 1:i-1 } \right) $$
+$$  
+{ p }_{ \theta }^{ \prime }\left( { y }_{ i }|x,{ y }_{ 1:i-1 }\right) =\sum _{ z\in top-k\left( p\left( \cdot |x \right) \right) }^{}{ { p }_{ \eta } } \left( { z }_{ i }|x \right) { p }_{ \theta }\left({ y }_{ i }|x,{ z }_{ i },{ y }_{ 1:i-1 } \right)  
+$$
 
 Decoding 단계에서 ${ p }_{ \theta  }^{ \prime  }\left( { y }_{ i }|x,{ y }_{ 1:i-1 } \right) $를 standard beam decoder를 사용하여 구할 수 있다.
 
 **RAG-Sequence**  
-각 candidate codument $z$에 대해 beam search를 사용하여 ${ p }_{ \theta
-}\left( { y }_{ i }|x,z,{ y }_{ 1:i-1 } \right) $에 대해 각 hypothesis를
-scoring한다. 모든 beam에 대한 hypothesis $y$의 확률을 추정하기 위해 $y$
-beam에 나타나지 않는 각 document $z$에 대해 추가 forward pass를 수행하고
-generator score에 ${ p }_{ \eta }\left( z|x \right) $를 곱하여
-margninal에 대한 beam 사이의 확률을 합한다. ("Thorough Decoding")
+각 candidate codument $z$에 대해 beam search를 사용하여 ${ p }_{\theta}\left( { y }_{ i }|x,z,{ y }_{ 1:i-1 } \right) $에 대해 각 hypothesis를 scoring한다.  
+모든 beam에 대한 hypothesis $y$의 확률을 추정하기 위해 $y$beam에 나타나지 않는 각 document $z$에 대해 추가 forward pass를 수행하고generator score에 ${ p }_{ \eta }\left( z|x \right) $를 곱하여 margninal에 대한 beam 사이의 확률을 합한다. ("Thorough Decoding")
 
 더 긴 sequence의 경우 효율적인 디코딩을 위해 $x,{ z }_{ i }$로 부터 beam search동안 $y$가 생성되지 않은 ${ p }_{ \theta  }\left( y|x,{z}_{i}\right) \approx 0$에 대한 근사값을 더 만들 수 있다.
 이것은 candidate set $Y$가 생성된 후 추가적인 forward pass를 수행하지 않아도 된다.("Fast Decoding")
