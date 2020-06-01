@@ -91,18 +91,23 @@ BART를 통해 생성할때 input $x$와 검색된 컨텐츠 $z$를 결합하기
 ## 2.5 Decoding
 Test 및 decoding 단계에서 RAG-sequence와 RAG-token은 ${ argmax }_{ y }p\left( y|x \right) .$를 근사하는 다른 방법을 필요로 한다.
 
-* **RAG-Token**
-RAG-Token Model은 transition probability를 가진 auto-regressive seq2seq generator로 볼 수 있다.  
-$$
-{ p }_{ \theta  }^{ \prime  }\left( { y }_{ i }|x,{ y }_{ 1:i-1 } \right) =\sum _{ z\in top-k\left( p\left( \cdot |x \right)  \right)  }^{  }{ { p }_{ \eta  } } \left( { z }_{ i }|x \right) { p }_{ \theta  }\left( { y }_{ i }|x,{ z }_{ i },{ y }_{ 1:i-1 } \right)
-$$
+**RAG-Token**  
+RAG-Token Model은 transition probability를 가진 auto-regressive seq2seq
+generator로 볼 수 있다.  
+$$ { p }_{ \theta }^{ \prime }\left( { y }_{ i }|x,{ y }_{ 1:i-1 }
+\right) =\sum _{ z\in top-k\left( p\left( \cdot |x \right) \right) }^{
+}{ { p }_{ \eta } } \left( { z }_{ i }|x \right) { p }_{ \theta }\left(
+{ y }_{ i }|x,{ z }_{ i },{ y }_{ 1:i-1 } \right) $$
 
 Decoding 단계에서 ${ p }_{ \theta  }^{ \prime  }\left( { y }_{ i }|x,{ y }_{ 1:i-1 } \right) $를 standard beam decoder를 사용하여 구할 수 있다.
 
-* **RAG-Sequence**
-각 candidate codument $z$에 대해 beam search를 사용하여 ${ p }_{ \theta  }\left( { y }_{ i }|x,z,{ y }_{ 1:i-1 } \right) $에 대해 각 hypothesis를 scoring한다.
-모든 beam에 대한 hypothesis $y$의 확률을 추정하기 위해 $y$ beam에 나타나지 않는 각 document $z$에 대해 추가 forward pass를 수행하고 generator score에 ${ p }_{ \eta  }\left( z|x \right) $를 곱하여 margninal에 대한 beam 사이의 확률을 합한다. ("Thorough Decoding")
-
+**RAG-Sequence**  
+각 candidate codument $z$에 대해 beam search를 사용하여 ${ p }_{ \theta
+}\left( { y }_{ i }|x,z,{ y }_{ 1:i-1 } \right) $에 대해 각 hypothesis를
+scoring한다. 모든 beam에 대한 hypothesis $y$의 확률을 추정하기 위해 $y$
+beam에 나타나지 않는 각 document $z$에 대해 추가 forward pass를 수행하고
+generator score에 ${ p }_{ \eta }\left( z|x \right) $를 곱하여
+margninal에 대한 beam 사이의 확률을 합한다. ("Thorough Decoding")
 
 더 긴 sequence의 경우 효율적인 디코딩을 위해 $x,{ z }_{ i }$로 부터 beam search동안 $y$가 생성되지 않은 ${ p }_{ \theta  }\left( y|x,{z}_{i}\right) \approx 0$에 대한 근사값을 더 만들 수 있다.
 이것은 candidate set $Y$가 생성된 후 추가적인 forward pass를 수행하지 않아도 된다.("Fast Decoding")
