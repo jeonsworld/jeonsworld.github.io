@@ -1,3 +1,9 @@
+---
+title: '[논문리뷰] Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks'
+date: 2020-06-01
+category: 'NLP'
+draft: false
+---
 
 > **Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks**  
 Patrick Lewis, Ethan Perez, Aleksandara Piktus, Fabio Petroni, Vladimir Karpukhin, Naman Goyal, Heinrich Küttler, Mike Lewis, Wen-tau Yih, Tim Rocktäschel, Sebastian Riedel, Douwe Kiela  
