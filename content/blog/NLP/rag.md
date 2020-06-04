@@ -24,7 +24,7 @@ Parametric memory와 non-Parametric memory를 결합한 model은 지식을 수�
 여기서 parametric memory는 Pre-trained seq2seq transformer이고 non-parametric memory는 pre-trained neural retriever를 사용하는 wikipedia의 dense vector index이다.
 이러한 요소들은 end-to-end probabilistic model로 결합한다.
 
-Document retriever는 입력에 따라 latent document를 제공하고 seq2seq model은 latent document와 입력을 통해 출력을 생성한다.
+Document retriever는 입력(Query)을 통해 latent document를 제공하고 seq2seq model은 latent document와 입력(Query)을 통해 출력을 생성한다.
 Answer basis 또는 answer token basis를 기준으로 top-k 근사치를 통해 latent variable을 marginalization한다.
 T5 및 BART와 마찬가지로 RAG는 seq2seq task에서 fine-tuning되기 때문에 sequence genetor와 retriever가 함께 학습된다.
 
@@ -106,3 +106,43 @@ Decoding 단계에서 ${ p }_{ \theta  }^{ \prime  }\left( { y }_{ i }|x,{ y }_{
 이것은 candidate set $Y$가 생성된 후 추가적인 forward pass를 수행하지 않아도 된다.("Fast Decoding")
 
 
+# Experiments
+Wikipedia 2018년 12월 덤프를 사용하였으며 Wikipedia article은 100-word로 분할하여 총 21,015,324개 document가 된다.  
+DPR document retriever를 사용하여 각 document에 대한 document embedding을 계산하고 효율적인 검색을 위해 Hierarchical Navigable Small World approximation를 사용하는 FAISS를 통해 single MIPS index를 만든다.
+
+학습동안 top-k개의 document를 검색하며 상위 k는 {5,15}으로 세팅한다.
+
+
+## 3.1 Open-domain Question Answering
+Open-domain QA는 knowledge-intensive task를 위해 사용되는 경우가 많다.
+본 논문에서는 질문과 답변을 간단한 input-output text pairs$(x,y)$로 취급하여 open-domain QA를 처리하고 negative log-likelihood를 최소화하여 RAG를 학습한다.
+
+총 4가지 open-domain QA dataset을 사용한다.
+1. Natural Questions(NQ)
+2. TriviaQA(TQA)
+3. WebQuestions(WQ)
+4. CuratedTrec(CT)
+
+![table](./img/rag/table1.png)
+
+
+## 4.5 Ablations
+RAG의 성능에 어떤 요소가 영향을 미치는지 이해해가 위해 각 devset에 대해 여러가지 제거 실험을 진행한다.
+
+![table5](./img/rag/table5.png)
+![fig3](./img/rag/fig3.png)
+
+
+**Using more documents**: 모델은 5개 또는 10개의 latent document로 학습되며 모델간에 큰 성능차이는 관찰되지 않는다.
+그림3의 왼쪽은 더 많은 문서를 검색하면 RAG-Sequence에 대한 Open-domain QA 결과가 향상되지만 10개의 검색된 문서에서 RAG-Token에 대한 performance peak가 발생한다.
+
+
+**Retrieval**: RAG의 주요 기능은 현재 task에 대한 관련 정보를 검색하는 방법을 배우는 것이다.
+Retrieval mechanism의 효과를 평가하기 위해 RAG에서 gradient가 retriever로 전파되는 것을 제거한다.
+
+표5는 모든 task에 대한 결과를 보여주며 학습된 retriever는 결과를 크게 향상시키는 것을 알 수 있다.
+그림3의 중앙은 trained retriever가 fixed retriever와 비교하여 gold document에 대해 높은 recall을 보여준다.
+
+추가적으로 RAG의 **dense embedding-based retrieval mechanism**과 **word overlap-based BM25 retriver**를 비교한다.(표5 및 그림3)  
+FEVER의 경우 entity-centric 및 word overlapbased retrieval에 적합하기 때문에 BM25의 성능이 가장 뛰어나다.  
+그러나 다른 모든 task에서는 RAG의 mechanism이 뛰어나다.(특히 QA)
