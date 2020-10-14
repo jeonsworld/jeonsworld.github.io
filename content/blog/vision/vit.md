@@ -94,4 +94,148 @@ Vision Transformer는 임의의 sequence length를 처리할 수 있지만 pre-t
 Resolution 조정 및 patch 추출은 이미지의 2D 구조에 대한 inductive bias가 Vision Transformer에 수동으로 주입되는 유일한 지점이다.
 
 # 4. Experiments
+ResNet, Vision Transformer(ViT) 및 Hybrid에 대해 representation learning 검증을 수행한다.
+다양한 크기의 dataset에 대해 pre-train하고 benchmark를 수행한다.
 
+pre-training 계산비용을 고려할 때 ViT는 더 낮은 비용으로 대부분의 recognition benchmark에서 SotA를 달성하였다.
+
+## 4.1 Setup
+**Datasets.**  
+Pre-train dataset
+* ILSVRC-2012 ImageNet dataset(ImageNet) - 1k 클래스 및 1.3M 이미지
+* ImageNet-21k - 21,000 클래스 및 14M 이미지
+* JFT - 18k 클래스 및 303M 이미지
+
+Transfer Learning dataset
+* ImageNet 및 ReaL labels
+* CIFAR 10/100
+* Oxford-IIIT Pets
+* Oxford Flowers-102
+* 19-task VTAB classification suite
+
+
+**Model Variants.**
+* BERT에 사용되는 구성을 기반으로 함.
+* 접미사는 "B"(Base), "L"(Large), "H"(Huge) 를 뜻함.
+* 예를들어 ViT-L/16 의 경우는 Large 사이즈 이며 16x16 의 패치크기를 가짐.
+
+**Training & Fine-tuning.**  
+Pre-train
+* Adam optimizer, ${ \beta  }_{ 1 }=0.9,{ \beta  }_{ 2 }=0.999, batch size=4096$
+* weight decay: 0.1
+
+Fine-tuning
+* SGD w/ momentum, $batch size=512$
+* using linear learning rate warmup and decay
+* Higher resolution: 512 for ViT-L/16 and 518 for ViT-H/14
+
+## 4.2 Comparison to State of the Art
+![table2](./img/vit/table2.png)
+
+모든 모델은 TPUv3에서 학습되었으며 pre-train에 소요된 일수를 확인할 수 있다.
+
+ViT-L/16 모델은 모든 dataset에서 BiT-L과 일치하거나 더 좋은 성능을 보여줌과 동시에 훨씬 적은 computational resource를 필요로 한다.
+더 큰 모델인 Vit-H/14는 ImageNet 및 CIFAR-100과 VTAB에서 성능이 더욱 향상되었다.
+
+
+![fig2](./img/vit/fig2.png)
+
+VTAB task에 대해 각각의 그룹으로 분할하고 이전 SotA와 비교함.
+
+## 4.3 Pre-training Data Requirements
+ViT는 large-scale JFT-300M dataset에서 pre-train 하였을 때 좋은 성능을 보여준다.
+ResNet보다 vision에 대한 inductive bias가 적을때 dataset의 크기가 얼마나 중요한지에 대한 실험을 수행한다.
+
+![fig3](./img/vit/fig3.png)
+
+가장 작은 dataset에 대해 pre-train을 수행한 경우 ViT-Large 모델은 정규화에도 불구하고 ViT-Base보다 성능이 떨어진다.
+그러나 ImageNet-21k dataset을 사용하면 성능이 비슷하다.
+JFT-300M dataset에서는 ViT가 BiT보다 더 좋은 성능을 보여줌을 확인할 수 있다.
+
+결과적으로 더 작은 dataset의 경우 convolutional inductive bias가 유리하지만 큰 dataset의 경우 관련 패턴을 학습하는 것이 충분하고 이점이 있다는 직감가질 수 있다.
+
+## 4.4 Scaling Study
+JFT-300M dataset에서 transfer performance에 대해 다양한 모델의 확장 연구를 수행한다.  
+Dataset 크기는 모델 성능에 병목 현상이 없으며 각 모델의 pre-train 비용 대비 성능을 평가한다. 그림5에 transfer performance vs pre-training compute에 대한 내용이 있다.
+
+![fig5](./img/vit/fig5.png)
+
+1. ViT는 performance/compute trade-off 에서 ResNet보다 효율적이다. ViT는 동일한 성능을 달성하기 위해 약 2배 적은 컴퓨팅을 사용함.
+2. Hybrid는 적은 computational cost에서 ViT를 능가하지만 큰 computational cost에서는 차이가 사라진다.
+3. ViT는 시도된 범위내에서 "saturate"되지 않는 것으로 보이며 향후 확장이 가능해보인다.
+
+## 4.5 Inspecting Vision Transformer
+![fig7](./img/vit/fig7.png)
+
+ViT가 이미지를 처리하는 방법을 이해하기위해 분석을 수행한다.
+ViT의 첫번째 layer는 flatten patch를 더 낮은 차원의 space에 projection한다.
+
+그림7 왼쪽은 학습된 embedding filter의 구성요소를 보여준다.
+구성요소는 각 patch내 미세 구조의 low-dimensional representation에서 그럴듯한 basic function과 유사하다.
+
+Projection 이후 학습된 position embedding이 patch representation에 추가된다.
+그림7 가운데는 모델이 position embedding의 유사성에서 이미지 내 거리를 encoding하는 방법을 학습함을 보여준다.  
+즉, 더 가까운 patch는 더 유사한 position embedding을 갖는 경향이 있으며 행-열 구조가 나타난다.
+
+Self-attention을 통해 ViT는 가장 낮은 layer에서도 전체 이미지에 대한 정보를 통합할 수 있다.
+Self-attention의 weight를 기반으로 정보가 통합되는 이미지 공간의 평균 거리를 계산한다.(그림7 오른쪽)  
+"attention distance"는 CNN의 receptive field size와 유사하다.
+
+일부 head는 이미 최하위 layer에 있는 대부분의 이미지에 attention을 하여 global하게 모델에서 사용됨을 보여준다.
+또한 network 깊이에 따라 attention distance가 증가한다.
+모델이 의미상의 분류와 관련된 이미지 영역을 담당한다는 것을 알 수 있다.(그림6)
+
+![fig6](./img/vit/fig6.png)
+
+## 4.6 Self-supervision
+Transformer는 NLP task에서 인상적인 성능을 보여주었다.
+그러나 대부분의 성공은 확장성뿐만 아니라 self-supervised pre-training에서 비롯된다.
+또한 BERT에서 사용되는 MLM(Masked Language Modeling)을 모방하여 self-supervision을 위한 Masked Patch Prediction에 대한 예비탐색을 수행한다.
+
+Self-supervised pre-training을 수행한 ViT-B/16 모델은 ImageNet에서 79.9%의 정확도를 달성하여 scratch로 부터 train을 수행한것보다 2%가 향상되었지만 supervised pre-training보다는 4% 떨어졌다.
+
+자세한 내용은 Appendix B.1.2에 있으며 contrastive pre-training에 대한 탐구는 future work으로 남김.
+
+# 5. Conclusion
+Image recognition에서 Transformer를 직접 적용하는 방법을 제안했다.
+Computer Vision에서 Self-attention을 사용하는 이전 연구들과 달리, 본 논문에서는 architecture에 image-specific inductive bias를 사용하지 않았다.
+대신 이미지를 patch로 해석하고 NLP에서 사용되는 standard transformer encoder로 처리한다.  
+간단하면서도 확장가능한 전략은 large-scale dataset에 대한 pre-train과 결합될 때 놀랍도록 잘 작동하였다.
+따라서 Vision Transformer는 많은 image classification dataset에서 SotA를 능가하거나 능가하는 동시에 pre-train 비용이 상대적으로 저렴하다.
+
+이러한 결과는 고무적이지만 많은 challenge가 남아있다.  
+첫째, dctection 및 segmentation과 같은 computer vision task에 ViT를 적용하는 것이다.  
+둘째, pre-training method에 대해 연구하는 것이다.
+초기 실험에서 self-supervised pre-training이 개선된점을 보여주었지만, supervised pre-training을 능가하지만 못하였다.  
+셋째, 모델의 크기가 증가하여도 "saturate"상태가 아닌것으로 보이기 때문에 ViT를 더 확장한다.
+
+# Appendix
+## B. Experiment details
+### B.1.2 Self-supervision
+Self-supervision experiment를 위해 Masked Patch Prediction을 사용한다.
+이를 위해 embedding을 학습가능한 $[MASK]$ embedding(80%), 임의의 다른 patch embedding(10%), 그대로 유지(10%)하여 patch embedding의 50%를 corrupt한다.  
+마지막으로 각각의 patch representation을 사용하여 모든 corrupted patch의 3-bit mean color(총 512 color)를 예측한다.
+
+JFT에서 batch size가 4096인 1M step(약 14epochs)에 대해 self-supervised learning을 수행했다.
+다음과 같이 총 3가지 설정으로 실험을 수행하였으며 1번의 세팅이 가장 좋았다.
+1. 3-bit color 예측
+2. 16x16 patch의 4x4 축소 버전 예측
+3. L2를 사용한 전체 patch에 대한 regression
+
+BERT와 같이 corruption rate 15%도 사용하였지만 약간 더 나빳다.
+
+## C. Additional Analysis
+### C.6 Attention Distance
+![fig10](./img/vit/fig10.png)
+
+ViT가 Self-attention을 사용하여 이미지 전체에 정보를 통합하는 방법을 이해하기 위해 각 layer에서 self-attention weight에 따른 average distance를 분석했다. (그림 10)  
+"Attention distance"는 하위 layer의 head에서 매우 다양하며 일부 head는 이미지의 많은 부분에 attention하고 일부 head는 근처 작은 영역에 attention한다.  
+깊이가 증가하면 모든 head의 attention distance가 증가한다.
+Network의 후반부에서 대부분의 head는 token 전반에 걸쳐 widely하게 attention한다.
+
+
+### C.7 Attention Map
+Output token에서 input space로의 attention map을 계산하기 위해 Attention Rollout([Abnar & Zuidema, 2020](https://arxiv.org/abs/2005.00928))을 사용했다.  
+모든 head에서 ViT-L/16의 attention weight를 평균하고 다음 모든 layer의 weight matrix를 반복적으로 곱함.
+
+![fig13](./img/vit/fig13.png)
