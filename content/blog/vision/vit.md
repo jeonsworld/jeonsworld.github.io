@@ -6,8 +6,8 @@ draft: false
 ---
 
 > **An Image is Worth 16X16 Words: Transformers for Image Recognition at Scale**  
-Anonymous authors  
-https://openreview.net/pdf?id=YicbFdNTTy
+Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, Jakob Uszkoreit, Neil Houlsby  
+https://arxiv.org/abs/2010.11929
 
 # Abstract
  Transformer architecture는 NLP task에서는 표준이 되었지만 computer vison task에서는 아직 제한적이다.
