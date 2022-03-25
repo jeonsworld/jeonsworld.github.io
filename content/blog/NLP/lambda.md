@@ -35,3 +35,5 @@ LaMDA는 단일모델을 사용하여 여러 task를 수행한다:
 * quality는 sensibleness, specificity, interestingness를 기반으로 한다.
 * safety는 model이 생성하는 response중 안전하지 않은 response를 줄이기 위해 추가했다.
 * groundedness는 external knowledge에 기반한 response를 생성하기 위해 추가했다.
+
+
