@@ -6,7 +6,7 @@ name: build gatsby
 jobs:
   build_gatsby:
     name: build
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
 
@@ -24,6 +24,5 @@ jobs:
       - name: deploy
         uses: maxheld83/ghpages@v0.3.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_PAT: ${{ secrets.GH_PAT }}
           BUILD_DIR: 'public/'
