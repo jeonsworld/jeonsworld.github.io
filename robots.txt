@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://jeonsworld.github.io/sitemap.xml
+Host: https://jeonsworld.github.io
