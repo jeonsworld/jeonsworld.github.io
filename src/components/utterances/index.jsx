@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 const src = 'https://utteranc.es/client.js'
-const branch = 'main'
+const branch = 'master'
 
 export const Utterences = ({ repo }) => {
   const rootElm = React.createRef()
