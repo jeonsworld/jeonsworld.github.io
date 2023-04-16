@@ -17,6 +17,6 @@ https://arxiv.org/abs/2303.10464
 
 이를 통해, 1.3B parameter GPT-3 XL 모델에서 75% sparsity를 도출해 pre-training FLOPs를 2.5배 줄일 수 있었으며, downstream task의 정확도에도 큰 손실 없이 기존 dense 모델과 비슷한 결과를 보였줌.
 
-![fig1](./img/spdf/fig1.png)
-![table1](./img/spdf/table1.png)
-![table2](./img/spdf/table2.png)
+![fig1](./img/SPDF/fig1.png)
+![table1](./img/SPDF/table1.png)
+![table2](./img/SPDF/table2.png)
