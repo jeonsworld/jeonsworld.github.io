@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url> <loc>https:jeonsworld.github.io/NLP/rlforlm/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/chatgpt_beyond/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/lecun_interview/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/spdf/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/Multi_Modal/beit3/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/adamix/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/lamda/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/vision/vit/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/rag/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/iee/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/para_level_pretraining/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/orqa/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/ramen/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/realm/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/knowledge_pack_lm/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/translate_query/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/sembert/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/rel_pe/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/Research/ml_research/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/bertnotkb/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/electra/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/mixreview/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/plato/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/t5/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/lama/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/distill_knowledge/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/encyclo/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/finbert/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/albert/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/Multi_Modal/epic/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/spanbert/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/roberta/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/Graph_Neural_Network/segtree_tf/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/Transfer_Learning/growing_a_brain/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/NLP/xlnet/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/about/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https:jeonsworld.github.io/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+</urlset>
